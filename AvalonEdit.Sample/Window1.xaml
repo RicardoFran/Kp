@@ -1,0 +1,188 @@
+﻿<!-- 
+	Copyright (c) 2009 Daniel Grunwald
+	
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this
+	software and associated documentation files (the "Software"), to deal in the Software
+	without restriction, including without limitation the rights to use, copy, modify, merge,
+	publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
+	to whom the Software is furnished to do so, subject to the following conditions:
+	
+	The above copyright notice and this permission notice shall be included in all copies or
+	substantial portions of the Software.
+	
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+	INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+	PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+	FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+	DEALINGS IN THE SOFTWARE.
+-->
+<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:jas="clr-namespace:WPF.JoshSmith.Controls" 
+	xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+	xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+	xmlns:CodeCompletion="clr-namespace:ICSharpCode.AvalonEdit.CodeCompletion;assembly=ICSharpCode.AvalonEdit" x:Class="Kp.Window1"
+	TextOptions.TextFormattingMode="Display"
+	Title="Kp" Height="607.26" Width="1172.1" ResizeMode="NoResize">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="BackBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#66000000" Offset="0" />
+            <GradientStop Color="#33000000" Offset="1" />
+        </LinearGradientBrush>
+
+        <Style x:Key="BorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{StaticResource BackBrush}" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Padding" Value="4" />
+        </Style>
+
+        <DataTemplate x:Key="ItemTemplateHorizontal">
+            <Border Style="{StaticResource BorderStyle}" Width="200">
+                <TextBlock Text="{Binding}" />
+            </Border>
+        </DataTemplate>
+
+    </Window.Resources>
+    <Grid HorizontalAlignment="Left" Height="563" Margin="10,10,0,0" VerticalAlignment="Top" Width="1124">
+        <ToolBar x:Name="ToolBar_1" HorizontalAlignment="Left" Width="393" Height="27" VerticalAlignment="Top" Margin="300,-4,0,0">
+            <ToolBar.Resources>
+                <Style TargetType="{x:Type Image}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type ButtonBase}}}" Value="False">
+                            <Setter Property="Opacity" Value="0.30" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ToolBar.Resources>
+            <Button Click="openFileClick1">
+                <Image Source="Images/Open.png" Height="16"/>
+            </Button>
+            <Button Click="saveFileClick1">
+                <Image Source="Images/Save.png" Height="16"/>
+            </Button>
+            <Separator/>
+            <Button Command="Cut">
+                <Image Source="Images/Cut.png" Height="16"/>
+            </Button>
+            <Button Command="Copy">
+                <Image Source="Images/Copy.png" Height="16"/>
+            </Button>
+            <Button Command="Paste">
+                <Image Source="Images/Paste.png" Height="16"/>
+            </Button>
+            <Button Command="Delete">
+                <Image Source="Images/Delete.png" Height="16"/>
+            </Button>
+            <Separator/>
+            <Button Command="Undo">
+                <Image Source="Images/Undo.png" Height="16"/>
+            </Button>
+            <Button Command="Redo">
+                <Image Source="Images/Redo.png" Height="16"/>
+            </Button>
+            <Separator/>
+            <CheckBox IsChecked="{Binding WordWrap, ElementName=TextEditor_1}">
+                <Image Source="Images/WordWrap.png" Height="16"/>
+            </CheckBox>
+            <CheckBox IsChecked="{Binding ShowLineNumbers, ElementName=TextEditor_1}">
+                <TextBlock Width="16" TextAlignment="Center"><Run Text="#"/></TextBlock>
+            </CheckBox>
+            <CheckBox IsChecked="{Binding Options.ShowEndOfLine, ElementName=TextEditor_1}">
+                <TextBlock Width="16" TextAlignment="Center"><Run Text="¶"/></TextBlock>
+            </CheckBox>
+            <ComboBox x:Name="highlightingComboBox1"
+                SelectedItem="{Binding SyntaxHighlighting, ElementName=TextEditor_1}"
+                ItemsSource="{Binding HighlightingDefinitions, Source={x:Static avalonEdit:HighlightingManager.Instance}}"
+                SelectionChanged="HighlightingComboBox_SelectionChanged1" Margin="0,1,0,1.4" Width="72"/>
+        </ToolBar>
+        <Grid HorizontalAlignment="Left" Height="433" Margin="300,61,0,0" VerticalAlignment="Top" Width="393">
+            <avalonEdit:TextEditor x:Name="TextEditor_1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="413" Width="373" MouseDoubleClick="TextEditor_1_MouseDoubleClick" TextChanged="TextEditor_1_TextChanged" IsReadOnly="True" IsHitTestVisible="True"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="433" Margin="721,61,0,0" VerticalAlignment="Top" Width="395">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="131*"/>
+                <ColumnDefinition Width="264*"/>
+            </Grid.ColumnDefinitions>
+            <avalonEdit:TextEditor x:Name="TextEditor_2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="413" Width="375" TextChanged="TextEditor_2_TextChanged" Grid.ColumnSpan="2" IsReadOnly="True" IsHitTestVisible="True"/>
+        </Grid>
+        <Button x:Name="Button_Upload" Content="Upload .bat file" HorizontalAlignment="Left" Height="19" Margin="721,37,0,0" VerticalAlignment="Top" Width="91" Click="Button_Upload_Click"/>
+        <Button x:Name="Button_Start" Content="Start" HorizontalAlignment="Left" Height="19" Margin="817,37,0,0" VerticalAlignment="Top" Width="91" Click="Button_Start_Click"/>
+        <TextBox x:Name="TextBox_Upload" HorizontalAlignment="Left" Height="19" Margin="415,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
+        <Label Content="Match Tuple :" HorizontalAlignment="Left" Margin="0,-4,0,0" VerticalAlignment="Top" Width="248" Height="41" FontSize="22"/>
+        <Label Content="Total Line :" HorizontalAlignment="Left" Height="24" Margin="311,494,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label x:Name="TotalLine_TextEditor1" Content="" HorizontalAlignment="Left" Height="24" Margin="386,494,0,0" VerticalAlignment="Top" Width="55"/>
+        <Label Content="Total Line :" HorizontalAlignment="Left" Height="24" Margin="733,494,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label x:Name="TotalLine_TextEditor2" Content="" HorizontalAlignment="Left" Height="24" Margin="808,494,0,0" VerticalAlignment="Top" Width="55"/>
+        <Label x:Name="SelectedLine_TextEditor2" Content="" HorizontalAlignment="Left" Height="24" Margin="963,494,0,0" VerticalAlignment="Top" Width="55"/>
+        <Label x:Name="labelAverageSimilarty" Content="" HorizontalAlignment="Left" Height="29" Margin="0,493,0,0" VerticalAlignment="Top" Width="289"/>
+        <Label x:Name="labelMaxSimilarty" Content="" HorizontalAlignment="Left" Height="29" Margin="1,524,0,0" VerticalAlignment="Top" Width="289"/>
+        <jas:SlidingListBox 
+            x:Name="slidingListBoxRight"  
+            Grid.Column="0" 
+            ItemTemplate="{StaticResource ItemTemplateHorizontal}" 
+            SelectionMode="Extended"
+            HorizontalContentAlignment="Left" 
+            SlideDirection="Right"
+            SlideDistance="70"
+            SlideDuration="90" SelectionChanged="slidingListBoxRight_SelectionChanged"
+     Margin="0,40,0,0" HorizontalAlignment="Left" Width="290" Height="416" VerticalAlignment="Top"
+     />
+        <ToolBar x:Name="ToolBar_2" HorizontalAlignment="Left" Width="393" Height="27" VerticalAlignment="Top" Margin="723,-4,0,0">
+            <ToolBar.Resources>
+                <Style TargetType="{x:Type Image}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type ButtonBase}}}" Value="False">
+                            <Setter Property="Opacity" Value="0.30" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ToolBar.Resources>
+            <Button Click="openFileClick2">
+                <Image Source="Images/Open.png" Height="16"/>
+            </Button>
+            <Button Click="saveFileClick2">
+                <Image Source="Images/Save.png" Height="16"/>
+            </Button>
+            <Separator/>
+            <Button Command="Cut">
+                <Image Source="Images/Cut.png" Height="16"/>
+            </Button>
+            <Button Command="Copy">
+                <Image Source="Images/Copy.png" Height="16"/>
+            </Button>
+            <Button Command="Paste">
+                <Image Source="Images/Paste.png" Height="16"/>
+            </Button>
+            <Button Command="Delete">
+                <Image Source="Images/Delete.png" Height="16"/>
+            </Button>
+            <Separator/>
+            <Button Command="Undo">
+                <Image Source="Images/Undo.png" Height="16"/>
+            </Button>
+            <Button Command="Redo">
+                <Image Source="Images/Redo.png" Height="16"/>
+            </Button>
+            <Separator/>
+            <CheckBox IsChecked="{Binding WordWrap, ElementName=TextEditor_2}">
+                <Image Source="Images/WordWrap.png" Height="16"/>
+            </CheckBox>
+            <CheckBox IsChecked="{Binding ShowLineNumbers, ElementName=TextEditor_2}">
+                <TextBlock Width="16" TextAlignment="Center"><Run Text="#"/></TextBlock>
+            </CheckBox>
+            <CheckBox IsChecked="{Binding Options.ShowEndOfLine, ElementName=TextEditor_2}">
+                <TextBlock Width="16" TextAlignment="Center"><Run Text="¶"/></TextBlock>
+            </CheckBox>
+            <ComboBox x:Name="highlightingComboBox2"
+                    SelectedItem="{Binding SyntaxHighlighting, ElementName=TextEditor_2}"
+                    ItemsSource="{Binding HighlightingDefinitions, Source={x:Static avalonEdit:HighlightingManager.Instance}}"
+                    SelectionChanged="HighlightingComboBox_SelectionChanged2" Margin="0,1,0,1.4" Width="72"/>
+        </ToolBar>
+        <Button x:Name="reset_button" Content="Reset" HorizontalAlignment="Left" Margin="0,461,0,0" VerticalAlignment="Top" Width="75" Click="reset_button_Click"/>
+    </Grid>
+</Window>

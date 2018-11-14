@@ -1,0 +1,14 @@
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\AvalonEdit.Sample\obj\Debug\Kp.csprojAssemblyReference.cache
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\AvalonEdit.Sample\obj\Debug\Window1.g.cs
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\AvalonEdit.Sample\obj\Debug\App.g.cs
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\AvalonEdit.Sample\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\AvalonEdit.Sample\obj\Debug\AvalonEdit.Sample_MarkupCompile.cache
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\AvalonEdit.Sample\obj\Debug\AvalonEdit.Sample_MarkupCompile.lref
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\bin\Debug\AvalonEdit.Sample.exe
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\bin\Debug\AvalonEdit.Sample.pdb
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\AvalonEdit.Sample\obj\Debug\Window1.baml
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\AvalonEdit.Sample\obj\Debug\AvalonEdit.Sample.g.resources
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\AvalonEdit.Sample\obj\Debug\Kp.csproj.CoreCompileInputs.cache
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\AvalonEdit.Sample\obj\Debug\Kp.csproj.CopyComplete
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\AvalonEdit.Sample\obj\Debug\AvalonEdit.Sample.exe
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\AvalonEdit.Sample\obj\Debug\AvalonEdit.Sample.pdb

@@ -1,0 +1,16 @@
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\bin\Debug\ICSharpCode.AvalonEdit.xml
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\bin\Debug\ICSharpCode.AvalonEdit.dll
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\bin\Debug\ICSharpCode.AvalonEdit.pdb
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit_MarkupCompile.cache
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit_MarkupCompile.lref
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\CodeCompletion\CompletionList.baml
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\CodeCompletion\InsightWindow.baml
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\Search\SearchPanel.baml
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\Search\DropDownButton.baml
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\TextEditor.baml
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\themes\generic.baml
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit.g.resources
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit.csproj.CoreCompileInputs.cache
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit.dll
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit.pdb
