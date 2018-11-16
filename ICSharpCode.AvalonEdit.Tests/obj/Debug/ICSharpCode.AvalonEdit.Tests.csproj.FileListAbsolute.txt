@@ -1,7 +1,0 @@
-C:\Users\carlc\Desktop\ToDo\KP\Avalon\bin\Debug\ICSharpCode.AvalonEdit.Tests.dll
-C:\Users\carlc\Desktop\ToDo\KP\Avalon\bin\Debug\ICSharpCode.AvalonEdit.Tests.pdb
-C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit.Tests\obj\Debug\ICSharpCode.AvalonEdit.Tests.csprojAssemblyReference.cache
-C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit.Tests\obj\Debug\ICSharpCode.AvalonEdit.Tests.csproj.CoreCompileInputs.cache
-C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit.Tests\obj\Debug\ICSharpCode.AvalonEdit.Tests.csproj.CopyComplete
-C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit.Tests\obj\Debug\ICSharpCode.AvalonEdit.Tests.dll
-C:\Users\carlc\Desktop\ToDo\KP\Avalon\ICSharpCode.AvalonEdit.Tests\obj\Debug\ICSharpCode.AvalonEdit.Tests.pdb

@@ -25,7 +25,7 @@
 	xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
 	xmlns:CodeCompletion="clr-namespace:ICSharpCode.AvalonEdit.CodeCompletion;assembly=ICSharpCode.AvalonEdit" x:Class="Kp.Window1"
 	TextOptions.TextFormattingMode="Display"
-	Title="Kp" Height="607.26" Width="1172.1" ResizeMode="NoResize">
+	Title="Kp" Height="584.1" Width="1170.5" ResizeMode="NoResize">
     <Window.Resources>
         <LinearGradientBrush x:Key="BackBrush" StartPoint="0.5,0" EndPoint="0.5,1">
             <GradientStop Color="#66000000" Offset="0" />
@@ -48,79 +48,25 @@
         </DataTemplate>
 
     </Window.Resources>
-    <Grid HorizontalAlignment="Left" Height="563" Margin="10,10,0,0" VerticalAlignment="Top" Width="1124">
-        <ToolBar x:Name="ToolBar_1" HorizontalAlignment="Left" Width="393" Height="27" VerticalAlignment="Top" Margin="300,-4,0,0">
-            <ToolBar.Resources>
-                <Style TargetType="{x:Type Image}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type ButtonBase}}}" Value="False">
-                            <Setter Property="Opacity" Value="0.30" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ToolBar.Resources>
-            <Button Click="openFileClick1">
-                <Image Source="Images/Open.png" Height="16"/>
-            </Button>
-            <Button Click="saveFileClick1">
-                <Image Source="Images/Save.png" Height="16"/>
-            </Button>
-            <Separator/>
-            <Button Command="Cut">
-                <Image Source="Images/Cut.png" Height="16"/>
-            </Button>
-            <Button Command="Copy">
-                <Image Source="Images/Copy.png" Height="16"/>
-            </Button>
-            <Button Command="Paste">
-                <Image Source="Images/Paste.png" Height="16"/>
-            </Button>
-            <Button Command="Delete">
-                <Image Source="Images/Delete.png" Height="16"/>
-            </Button>
-            <Separator/>
-            <Button Command="Undo">
-                <Image Source="Images/Undo.png" Height="16"/>
-            </Button>
-            <Button Command="Redo">
-                <Image Source="Images/Redo.png" Height="16"/>
-            </Button>
-            <Separator/>
-            <CheckBox IsChecked="{Binding WordWrap, ElementName=TextEditor_1}">
-                <Image Source="Images/WordWrap.png" Height="16"/>
-            </CheckBox>
-            <CheckBox IsChecked="{Binding ShowLineNumbers, ElementName=TextEditor_1}">
-                <TextBlock Width="16" TextAlignment="Center"><Run Text="#"/></TextBlock>
-            </CheckBox>
-            <CheckBox IsChecked="{Binding Options.ShowEndOfLine, ElementName=TextEditor_1}">
-                <TextBlock Width="16" TextAlignment="Center"><Run Text="¶"/></TextBlock>
-            </CheckBox>
-            <ComboBox x:Name="highlightingComboBox1"
-                SelectedItem="{Binding SyntaxHighlighting, ElementName=TextEditor_1}"
-                ItemsSource="{Binding HighlightingDefinitions, Source={x:Static avalonEdit:HighlightingManager.Instance}}"
-                SelectionChanged="HighlightingComboBox_SelectionChanged1" Margin="0,1,0,1.4" Width="72"/>
-        </ToolBar>
-        <Grid HorizontalAlignment="Left" Height="433" Margin="300,61,0,0" VerticalAlignment="Top" Width="393">
-            <avalonEdit:TextEditor x:Name="TextEditor_1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="413" Width="373" MouseDoubleClick="TextEditor_1_MouseDoubleClick" TextChanged="TextEditor_1_TextChanged" IsReadOnly="True" IsHitTestVisible="True"/>
+    <Grid Height="564" Margin="10,10,32,-19.6" VerticalAlignment="Top">
+        <Grid HorizontalAlignment="Left" Height="433" Margin="292,28,0,0" VerticalAlignment="Top" Width="393">
+            <avalonEdit:TextEditor x:Name="TextEditor_1" Margin="10,10,10,0" VerticalAlignment="Top" Height="413" MouseDoubleClick="TextEditor_1_MouseDoubleClick" TextChanged="TextEditor_1_TextChanged" IsReadOnly="True" IsHitTestVisible="True"/>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="433" Margin="721,61,0,0" VerticalAlignment="Top" Width="395">
+        <Grid HorizontalAlignment="Left" Height="433" Margin="713,28,0,0" VerticalAlignment="Top" Width="395">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="131*"/>
                 <ColumnDefinition Width="264*"/>
             </Grid.ColumnDefinitions>
-            <avalonEdit:TextEditor x:Name="TextEditor_2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="413" Width="375" TextChanged="TextEditor_2_TextChanged" Grid.ColumnSpan="2" IsReadOnly="True" IsHitTestVisible="True"/>
+            <avalonEdit:TextEditor x:Name="TextEditor_2" Margin="10,10,10.2,0" VerticalAlignment="Top" Height="413" TextChanged="TextEditor_2_TextChanged" Grid.ColumnSpan="2" IsReadOnly="True" IsHitTestVisible="True" MouseDoubleClick="TextEditor_2_MouseDoubleClick"/>
         </Grid>
-        <Button x:Name="Button_Upload" Content="Upload .bat file" HorizontalAlignment="Left" Height="19" Margin="721,37,0,0" VerticalAlignment="Top" Width="91" Click="Button_Upload_Click"/>
-        <Button x:Name="Button_Start" Content="Start" HorizontalAlignment="Left" Height="19" Margin="817,37,0,0" VerticalAlignment="Top" Width="91" Click="Button_Start_Click"/>
-        <TextBox x:Name="TextBox_Upload" HorizontalAlignment="Left" Height="19" Margin="415,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
-        <Label Content="Match Tuple :" HorizontalAlignment="Left" Margin="0,-4,0,0" VerticalAlignment="Top" Width="248" Height="41" FontSize="22"/>
-        <Label Content="Total Line :" HorizontalAlignment="Left" Height="24" Margin="311,494,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label x:Name="TotalLine_TextEditor1" Content="" HorizontalAlignment="Left" Height="24" Margin="386,494,0,0" VerticalAlignment="Top" Width="55"/>
-        <Label Content="Total Line :" HorizontalAlignment="Left" Height="24" Margin="733,494,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label x:Name="TotalLine_TextEditor2" Content="" HorizontalAlignment="Left" Height="24" Margin="808,494,0,0" VerticalAlignment="Top" Width="55"/>
+        <Label Content="Match Tuple :" Margin="0,-4,876,0" VerticalAlignment="Top" Height="41" FontSize="22"/>
+        <Label Content="Total Line :" Height="24" Margin="303,461,746,0" VerticalAlignment="Top"/>
+        <Label x:Name="TotalLine_TextEditor1" Content="" Height="24" Margin="378,461,691,0" VerticalAlignment="Top"/>
+        <Label Content="Total Line :" Height="24" Margin="725,461,324,0" VerticalAlignment="Top"/>
+        <Label x:Name="TotalLine_TextEditor2" Content="" Height="24" Margin="800,461,269,0" VerticalAlignment="Top"/>
         <Label x:Name="SelectedLine_TextEditor2" Content="" HorizontalAlignment="Left" Height="24" Margin="963,494,0,0" VerticalAlignment="Top" Width="55"/>
-        <Label x:Name="labelAverageSimilarty" Content="" HorizontalAlignment="Left" Height="29" Margin="0,493,0,0" VerticalAlignment="Top" Width="289"/>
-        <Label x:Name="labelMaxSimilarty" Content="" HorizontalAlignment="Left" Height="29" Margin="1,524,0,0" VerticalAlignment="Top" Width="289"/>
+        <Label x:Name="labelAverageSimilarty" Content="" Height="29" Margin="0,480,835,0" VerticalAlignment="Top"/>
+        <Label x:Name="labelMaxSimilarty" Content="" Height="29" Margin="1,509,834,0" VerticalAlignment="Top"/>
         <jas:SlidingListBox 
             x:Name="slidingListBoxRight"  
             Grid.Column="0" 
@@ -130,59 +76,12 @@
             SlideDirection="Right"
             SlideDistance="70"
             SlideDuration="90" SelectionChanged="slidingListBoxRight_SelectionChanged"
-     Margin="0,40,0,0" HorizontalAlignment="Left" Width="290" Height="416" VerticalAlignment="Top"
+     Margin="0,37,834,0" Height="419" VerticalAlignment="Top"
      />
-        <ToolBar x:Name="ToolBar_2" HorizontalAlignment="Left" Width="393" Height="27" VerticalAlignment="Top" Margin="723,-4,0,0">
-            <ToolBar.Resources>
-                <Style TargetType="{x:Type Image}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type ButtonBase}}}" Value="False">
-                            <Setter Property="Opacity" Value="0.30" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ToolBar.Resources>
-            <Button Click="openFileClick2">
-                <Image Source="Images/Open.png" Height="16"/>
-            </Button>
-            <Button Click="saveFileClick2">
-                <Image Source="Images/Save.png" Height="16"/>
-            </Button>
-            <Separator/>
-            <Button Command="Cut">
-                <Image Source="Images/Cut.png" Height="16"/>
-            </Button>
-            <Button Command="Copy">
-                <Image Source="Images/Copy.png" Height="16"/>
-            </Button>
-            <Button Command="Paste">
-                <Image Source="Images/Paste.png" Height="16"/>
-            </Button>
-            <Button Command="Delete">
-                <Image Source="Images/Delete.png" Height="16"/>
-            </Button>
-            <Separator/>
-            <Button Command="Undo">
-                <Image Source="Images/Undo.png" Height="16"/>
-            </Button>
-            <Button Command="Redo">
-                <Image Source="Images/Redo.png" Height="16"/>
-            </Button>
-            <Separator/>
-            <CheckBox IsChecked="{Binding WordWrap, ElementName=TextEditor_2}">
-                <Image Source="Images/WordWrap.png" Height="16"/>
-            </CheckBox>
-            <CheckBox IsChecked="{Binding ShowLineNumbers, ElementName=TextEditor_2}">
-                <TextBlock Width="16" TextAlignment="Center"><Run Text="#"/></TextBlock>
-            </CheckBox>
-            <CheckBox IsChecked="{Binding Options.ShowEndOfLine, ElementName=TextEditor_2}">
-                <TextBlock Width="16" TextAlignment="Center"><Run Text="¶"/></TextBlock>
-            </CheckBox>
-            <ComboBox x:Name="highlightingComboBox2"
-                    SelectedItem="{Binding SyntaxHighlighting, ElementName=TextEditor_2}"
-                    ItemsSource="{Binding HighlightingDefinitions, Source={x:Static avalonEdit:HighlightingManager.Instance}}"
-                    SelectionChanged="HighlightingComboBox_SelectionChanged2" Margin="0,1,0,1.4" Width="72"/>
-        </ToolBar>
-        <Button x:Name="reset_button" Content="Reset" HorizontalAlignment="Left" Margin="0,461,0,0" VerticalAlignment="Top" Width="75" Click="reset_button_Click"/>
+        <Button x:Name="reset_button" Content="Reset" Margin="0,461,1049,0" VerticalAlignment="Top" Click="reset_button_Click"/>
+        <Button x:Name="Button_Start" Content="Go !" HorizontalAlignment="Left" Height="25" Margin="800,5,0,0" VerticalAlignment="Top" Width="98" Click="Button_Start_Click"/>
+        <TextBox x:Name="TextBox_Upload" HorizontalAlignment="Left" Height="25" Margin="438,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="357"/>
+        <Label Content="Algorithm :" HorizontalAlignment="Left" Margin="351,0,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox x:Name="testing" HorizontalAlignment="Left" Height="23" Margin="205,5,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

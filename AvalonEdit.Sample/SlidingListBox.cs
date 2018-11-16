@@ -21,7 +21,7 @@ namespace WPF.JoshSmith.Controls
         public static readonly DependencyProperty SlideDirectionProperty;
         public static readonly DependencyProperty SlideDistanceProperty;
         public static readonly DependencyProperty SlideDurationProperty;
-
+        private int counter = 0;
         #endregion // Data
 
         #region Static Constructor
@@ -128,8 +128,9 @@ namespace WPF.JoshSmith.Controls
             // is 2, so the animation logic ensures that the Padding's Left
             // is always at 2 or the "slide distance".
             Thickness thickness;
-            if (item.IsSelected)
+            if (item.IsSelected && counter == 0)
             {
+                counter += 1;
                 ListBoxItemSlideDirection direction = this.SlideDirection;
                 if (direction == ListBoxItemSlideDirection.Up)
                     thickness = new Thickness(2, 0, 0, this.SlideDistance);
@@ -143,6 +144,7 @@ namespace WPF.JoshSmith.Controls
             else
             {
                 thickness = new Thickness(2, 0, 0, 0);
+                counter = 0;
             }
 
             TimeSpan timeSpan = TimeSpan.FromMilliseconds(this.SlideDuration);
