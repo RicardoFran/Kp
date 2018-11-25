@@ -13,7 +13,7 @@
            zero (0) to limit it to top-level sections only.  -->
       <!-- <autoOutline /> -->
       <para>In the SharpDevelop source code download, you will find a small sample
-	    application in SharpDevelop\samples\AvalonEdit.Sample.</para>
+	    application in SharpDevelop\samples\PlagiarismObserver.</para>
     </introduction>
     
 	<mediaLink><image xlink:href="WelcomeScreenshot" placement="center"/></mediaLink>

@@ -6,4 +6,4 @@ SharpDevelop website: http://www.icsharpcode.net/OpenSource/SD/
 
 Copyright Daniel Grunwald, 2008-2013
 ICSharpCode.AvalonEdit is licensed under the GNU LGPL. See license.txt for details.
-The AvalonEdit.Sample application is licensed under the MIT/X11 license. See the file headers of AvalonEdit.Sample\*.cs for details.
+The PlagiarismObserver application is licensed under the MIT/X11 license. See the file headers of PlagiarismObserver\*.cs for details.

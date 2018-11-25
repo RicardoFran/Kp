@@ -1,0 +1,91 @@
+﻿<!-- 
+	Copyright (c) 2009 Daniel Grunwald
+	
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this
+	software and associated documentation files (the "Software"), to deal in the Software
+	without restriction, including without limitation the rights to use, copy, modify, merge,
+	publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
+	to whom the Software is furnished to do so, subject to the following conditions:
+	
+	The above copyright notice and this permission notice shall be included in all copies or
+	substantial portions of the Software.
+	
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+	INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+	PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+	FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+	DEALINGS IN THE SOFTWARE.
+-->
+<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:jas="clr-namespace:WPF.JoshSmith.Controls" 
+	xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+	xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+	xmlns:CodeCompletion="clr-namespace:ICSharpCode.AvalonEdit.CodeCompletion;assembly=ICSharpCode.AvalonEdit" x:Class="Kp.Window1"
+	TextOptions.TextFormattingMode="Display"
+	Title="Plago" Height="590.12" Width="1237.706" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="BackBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#66000000" Offset="0" />
+            <GradientStop Color="#33000000" Offset="1" />
+        </LinearGradientBrush>
+
+        <Style x:Key="BorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{StaticResource BackBrush}" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Padding" Value="4" />
+        </Style>
+
+        <DataTemplate x:Key="ItemTemplateHorizontal">
+            <Border Style="{StaticResource BorderStyle}" Width="200">
+                <TextBlock Text="{Binding}" />
+            </Border>
+        </DataTemplate>
+
+    </Window.Resources>
+    <Grid Height="538" Margin="10,10,3.4,-1.6" VerticalAlignment="Top">
+        <Grid HorizontalAlignment="Left" Height="433" Margin="255,62,0,0" VerticalAlignment="Top" Width="478">
+            <avalonEdit:TextEditor x:Name="TextEditor_1" Margin="10,10,10,0" VerticalAlignment="Top" Height="413" MouseDoubleClick="TextEditor_1_MouseDoubleClick" TextChanged="TextEditor_1_TextChanged" IsReadOnly="True" IsHitTestVisible="True" BorderThickness="0"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="433" Margin="733,62,0,0" VerticalAlignment="Top" Width="478">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <avalonEdit:TextEditor x:Name="TextEditor_2" Margin="10,10,10.2,0" VerticalAlignment="Top" Height="413" TextChanged="TextEditor_2_TextChanged" IsReadOnly="True" IsHitTestVisible="True" MouseDoubleClick="TextEditor_2_MouseDoubleClick" BorderThickness="0"/>
+        </Grid>
+        <Label Content="Match Tuple :" Margin="10,18,1051.8,0" VerticalAlignment="Top" Height="41" FontSize="16" HorizontalAlignment="Center" Width="156"/>
+        <Label Content="Total Line :" Height="24" Margin="255,495,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="91"/>
+        <Label x:Name="TotalLine_TextEditor1" Content="" Height="24" Margin="330,495,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="71"/>
+        <Label Content="Total Line :" Height="24" Margin="744,495,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="91"/>
+        <Label x:Name="TotalLine_TextEditor2" Content="" Height="24" Margin="819,495,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="71"/>
+        <Button x:Name="reset_button" Content="Reset" Margin="10,479,0,0" VerticalAlignment="Top" Click="reset_button_Click" HorizontalAlignment="Left" Width="89" IsEnabled="False"/>
+        <Label Content="FileInput 1 :" HorizontalAlignment="Left" Margin="262,4,0,0" VerticalAlignment="Top" Width="89" FontSize="14"/>
+        <Button x:Name="Button_Upload" Content="Upload .bat file" HorizontalAlignment="Left" Height="22" Margin="500,41,0,0" VerticalAlignment="Top" Width="96" Click="Button_Upload_Click"/>
+        <Button x:Name="Button_Start" Content="Start" HorizontalAlignment="Left" Height="34" Margin="1110,19,0,0" VerticalAlignment="Top" Width="78" Click="Button_Start_Click" FontWeight="Bold" IsEnabled="False"/>
+        <TextBox x:Name="txtBox_BatFile" HorizontalAlignment="Left" Height="22" Margin="596,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" IsReadOnly="True"/>
+        <Button x:Name="questionButton_BatFile" Margin="896,41,0,0" Height="22" VerticalAlignment="Top" Click="questionButton_BatFile_Click" HorizontalAlignment="Left" Width="25">
+            <Image Source="Images/question.png" Height="16" Stretch="Fill"/>
+        </Button>
+        <Button x:Name="btn_FileInput1" Click="btn_FileInput1_Click" Margin="351,6,0,0" HorizontalAlignment="Left" Width="22" Height="23" VerticalAlignment="Top">
+            <Image Source="Images/Open.png" Height="16"/>
+        </Button>
+        <TextBox x:Name="txtBox_FileInput1" HorizontalAlignment="Left" Height="24" Margin="373,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" IsReadOnly="True"/>
+        <Button x:Name="questionButton_FileInput1" Margin="580,6,0,0" Click="questionButton_FileInput1_Click" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="25">
+            <Image Source="Images/question.png" Height="16" Stretch="Fill"/>
+        </Button>
+        <Label Content="FileInput 2 :" HorizontalAlignment="Left" Margin="734,4,0,0" VerticalAlignment="Top" Width="89" FontSize="14"/>
+        <Button x:Name="btn_FileInput2" Click="btn_FileInput2_Click" Margin="823,7,0,0" HorizontalAlignment="Left" Width="23" Height="23" VerticalAlignment="Top">
+            <Image Source="Images/Open.png" Height="16"/>
+        </Button>
+        <TextBox x:Name="txtBox_FileInput2" HorizontalAlignment="Left" Height="24" Margin="846,7,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" IsReadOnly="True"/>
+        <Button x:Name="questionButton_FileInput2" Margin="1052,7,0,0" Height="24" VerticalAlignment="Top" Click="questionButton_FileInput2_Click" HorizontalAlignment="Left" Width="25">
+            <Image Source="Images/question.png" Height="16" Stretch="Fill"/>
+        </Button>
+        <ListBox x:Name="ListBoxMatchTuple" HorizontalAlignment="Left" Height="412" Margin="10,61,0,0" VerticalAlignment="Top" Width="213" SelectionChanged="ListBoxMatchTuple_SelectionChanged" FontWeight="Bold" FontSize="16"/>
+    </Grid>
+</Window>

@@ -1,0 +1,12 @@
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\bin\Debug\PlagiarismObserver.exe
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\bin\Debug\PlagiarismObserver.pdb
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\PlagiarismObserver\obj\Debug\PlagiarismObserver.csprojAssemblyReference.cache
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\PlagiarismObserver\obj\Debug\Window1.baml
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\PlagiarismObserver\obj\Debug\Window1.g.cs
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\PlagiarismObserver\obj\Debug\App.g.cs
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\PlagiarismObserver\obj\Debug\PlagiarismObserver_MarkupCompile.cache
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\PlagiarismObserver\obj\Debug\PlagiarismObserver.g.resources
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\PlagiarismObserver\obj\Debug\PlagiarismObserver.csproj.CoreCompileInputs.cache
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\PlagiarismObserver\obj\Debug\PlagiarismObserver.csproj.CopyComplete
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\PlagiarismObserver\obj\Debug\PlagiarismObserver.exe
+C:\Users\carlc\Desktop\ToDo\KP\Avalon\PlagiarismObserver\obj\Debug\PlagiarismObserver.pdb

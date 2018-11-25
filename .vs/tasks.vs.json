@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "task-PlagiarismObserver",
+      "appliesTo": "PlagiarismObserver/",
+      "type": "launch"
+    },
+    {
+      "taskName": "task-Plago",
+      "appliesTo": "Plago.sln",
+      "type": "launch"
+    }
+  ]
+}
