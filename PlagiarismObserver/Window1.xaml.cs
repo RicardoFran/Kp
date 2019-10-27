@@ -28,7 +28,6 @@ namespace Kp
         private string[] arrayLineString1;
         private string[] arrayLineString2;
         private string[] arrayColorLine;
-        private string[] arrayColorBox1;
         private string[] arrayColorBox2;
         private string[] arrayHasilMatchTuple;
         private int[] arrayLine1;
@@ -43,10 +42,9 @@ namespace Kp
         private OffsetColorizer[] arrayColorTuple2;
         private DocumentLine lineSTART;
         private DocumentLine lineEND;
-
+        private string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
         public Window1()
-        {
-            // Load our custom highlighting definition
+        { 
             IHighlightingDefinition customHighlighting;
             using (Stream s = typeof(Window1).Assembly.GetManifestResourceStream("PlagiarismObserver.CustomHighlighting.xshd"))
             {
@@ -64,20 +62,9 @@ namespace Kp
 
             InitializeComponent();
 
-
-            TextEditor_1.TextArea.TextEntering += textEditor_TextArea_TextEntering;
-
-            TextEditor_2.TextArea.TextEntering += textEditor_TextArea_TextEntering;
-
-            DispatcherTimer foldingUpdateTimer1 = new DispatcherTimer();
-            foldingUpdateTimer1.Interval = TimeSpan.FromSeconds(2);
-            foldingUpdateTimer1.Tick += foldingUpdateTimer_Tick1;
-            foldingUpdateTimer1.Start();
-
-            DispatcherTimer foldingUpdateTimer2 = new DispatcherTimer();
-            foldingUpdateTimer2.Interval = TimeSpan.FromSeconds(2);
-            foldingUpdateTimer2.Tick += foldingUpdateTimer_Tick2;
-            foldingUpdateTimer2.Start();
+            AlgoComboBox.Items.Add("Java");
+            AlgoComboBox.Items.Add("C++");
+            AlgoComboBox.Items.Add("Python");
 
             #region arraycolor
             arrayColorLine = new string[51];
@@ -134,6 +121,267 @@ namespace Kp
             arrayColorLine[49] = "#00ff00";
             arrayColorLine[50] = "#ff7f00";
             #endregion
+
+            if (File.Exists(projectPath + @"\Setting.txt"))
+            {
+                label_Algorithm.IsEnabled = false;
+                AlgoComboBox.IsEnabled = false;
+                questionButton_BatFile.IsEnabled = false;
+                btn_FileInput1.IsEnabled = false;
+                btn_FileInput2.IsEnabled = false;
+                questionButton_FileInput1.IsEnabled = false;
+                questionButton_FileInput2.IsEnabled = false;
+
+                string hasil = System.IO.File.ReadAllText(projectPath + @"\Setting.txt");
+
+                if (hasil == null)
+                {
+                    MessageBox.Show("File Not Found !", "Use", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                }
+                else
+                {
+                    string[] array1 = new string[hasil.Length];
+                    array1 = hasil.Split('\n');
+                    array1[0] = array1[0].Replace("\r", String.Empty);
+                    array1[1] = array1[1].Replace("\r", String.Empty);
+
+                    txtBox_FileInput1.Text = array1[0];
+                    TextEditor_1.Load(txtBox_FileInput1.Text);
+                    TextEditor_1.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(txtBox_FileInput1.Text));
+                    TextEditor_1.ShowLineNumbers = true;
+
+                    txtBox_FileInput2.Text = array1[1];
+                    TextEditor_2.Load(txtBox_FileInput2.Text);
+                    TextEditor_2.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(txtBox_FileInput2.Text));
+                    TextEditor_2.ShowLineNumbers = true;
+
+                    string[] array2 = new string[array1.Length];
+                    int j = 2;
+                    for (int i = 0; i < array2.Length - 2; i++)
+                    {
+                        array2[i] = array1[j];
+                        j++;
+
+                    }
+                    arrayTextEditor1 = new string[array2.Length];
+                    int counterTextEditor = 0;
+                    arrayTextEditor1[0] = array2[0];
+                    for (int i = 0; i < array2.Length; i++)
+                    {
+                        counterTextEditor = i;
+                        if (array2[i].Contains("=EndOfFile="))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            arrayTextEditor1[i] = array2[i];
+                        }
+                    }
+                    counterTextEditor += 1;
+                    arrayTextEditor2 = new string[array2.Length];
+                    for (int i = 0; i < array2.Length; i++)
+                    {
+                        if (array2[counterTextEditor] == null)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            arrayTextEditor2[i] = array2[counterTextEditor];
+                            counterTextEditor++;
+                        }
+                    }
+                    #region MatchTuple
+                    arrayHasilMatchTuple = new string[array2.Length];
+                    arrayHasilMatchTuple[0] = array1[array1.Length - 1];
+                    for (int i = 0; i < array2.Length; i++)
+                    {
+                        if (arrayTextEditor1[i] == null)
+                        {
+                            break;
+                        }
+                        else if (arrayTextEditor1[i] != null)
+                        {
+                            arrayTextEditor1[i] = arrayTextEditor1[i].Replace("\n", String.Empty);
+                            arrayTextEditor1[i] = arrayTextEditor1[i].Replace("\r", String.Empty);
+                            arrayTextEditor1[i] = arrayTextEditor1[i].Replace("\t", String.Empty);
+                        }
+                    }
+                    for (int i = 0; i < array2.Length; i++)
+                    {
+                        if (arrayTextEditor2[i] == null)
+                        {
+                            break;
+                        }
+                        else if (arrayTextEditor2[i] != null)
+                        {
+                            arrayTextEditor2[i] = arrayTextEditor2[i].Replace("\n", String.Empty);
+                            arrayTextEditor2[i] = arrayTextEditor2[i].Replace("\r", String.Empty);
+                            arrayTextEditor2[i] = arrayTextEditor2[i].Replace("\t", String.Empty);
+                        }
+                    }
+                    #region array line + index
+                    string[] arrayLineIndex1 = new string[arrayTextEditor1.Length];
+                    arrayLineString1 = new string[arrayTextEditor1.Length];
+                    arrayLine1 = new int[arrayLineIndex1.Length];
+                    arrayIndex1 = new int[arrayLineIndex1.Length];
+                    for (int i = 0; i < arrayTextEditor1.Length; i++)
+                    {
+                        if (arrayTextEditor1[i] == "=EndOfFile=")
+                        {
+                            break;
+                        }
+                        else if (arrayTextEditor1[i] == "=EndOfString=")
+                        {
+                            int counterString1 = 0;
+                            int counterString2 = 0;
+                            for (counterString1 = i + 1; counterString1 < arrayTextEditor1.Length; counterString1++)
+                            {
+                                if (arrayTextEditor1[counterString1] == "=EndOfLine=")
+                                {
+                                    i = counterString1 - 1;
+                                    break;
+                                }
+                                else
+                                {
+                                    arrayLine1[counterString2] = Convert.ToInt32(arrayTextEditor1[counterString1]);
+                                    counterString2++;
+                                }
+                            }
+                        }
+                        else if (arrayTextEditor1[i] == "=EndOfLine=")
+                        {
+                            int counterString1 = 0;
+                            int counterString2 = 0;
+                            for (counterString1 = i + 1; counterString1 < arrayTextEditor1.Length; counterString1++)
+                            {
+                                if (arrayTextEditor1[counterString1] == "=EndOfFile=")
+                                {
+                                    i = counterString1;
+                                    break;
+                                }
+                                else
+                                {
+                                    arrayIndex1[counterString2] = Convert.ToInt32(arrayTextEditor1[counterString1]);
+                                    counterString2++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            arrayLineString1[i] = arrayTextEditor1[i];
+                        }
+                    }
+
+
+                    string[] arrayLineIndex2 = new string[arrayTextEditor2.Length];
+                    arrayLine2 = new int[arrayTextEditor2.Length];
+                    arrayLineString2 = new string[arrayTextEditor2.Length];
+                    arrayIndex2 = new int[arrayTextEditor2.Length];
+                    for (int i = 0; i < arrayTextEditor2.Length; i++)
+                    {
+                        if (arrayTextEditor2[i] == "=EndOfFile=")
+                        {
+                            break;
+                        }
+                        else if (arrayTextEditor2[i] == "=EndOfString=")
+                        {
+                            int counterString1 = 0;
+                            int counterString2 = 0;
+                            for (counterString1 = i + 1; counterString1 < arrayTextEditor2.Length; counterString1++)
+                            {
+                                if (arrayTextEditor2[counterString1] == "=EndOfLine=")
+                                {
+                                    i = counterString1 - 1;
+                                    break;
+                                }
+                                else
+                                {
+                                    arrayLine2[counterString2] = Convert.ToInt32(arrayTextEditor2[counterString1]);
+                                    counterString2++;
+                                }
+                            }
+                        }
+                        else if (arrayTextEditor2[i] == "=EndOfLine=")
+                        {
+                            int counterString1 = 0;
+                            int counterString2 = 0;
+                            for (counterString1 = i + 1; counterString1 < arrayTextEditor2.Length; counterString1++)
+                            {
+                                if (arrayTextEditor2[counterString1] == "=EndOfFile=")
+                                {
+                                    i = counterString1;
+                                    break;
+                                }
+                                else
+                                {
+                                    arrayIndex2[counterString2] = Convert.ToInt32(arrayTextEditor2[counterString1]);
+                                    counterString2++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            arrayLineString2[i] = arrayTextEditor2[i];
+                        }
+                    }
+                    #endregion
+                    #region matrikstuple
+                    arrayHasilMatchTuple[0] = arrayHasilMatchTuple[0].Replace("[", String.Empty);
+                    arrayHasilMatchTuple[0] = arrayHasilMatchTuple[0].Replace("]", String.Empty);
+                    isiListBox = arrayHasilMatchTuple[0].Split(',');
+                    for (int i = 0; i < isiListBox.Length; i++)
+                    {
+                        isiListBox[i] = isiListBox[i].Replace("\t", String.Empty);
+                        isiListBox[i] = isiListBox[i].Replace("\n", String.Empty);
+                        isiListBox[i] = isiListBox[i].Replace("\r", String.Empty);
+                        isiListBox[i] = isiListBox[i].Replace(" ", String.Empty);
+                    }
+                    if (isiListBox == null)
+                    {
+                        isiListBox[0] = arrayHasilMatchTuple[0];
+                    }
+                    ListBoxMatchTuple.ItemsSource = isiListBox;
+                    matrikstuple = new string[isiListBox.Length, 3];
+                    for (int i = 0; i < isiListBox.Length; i++)
+                    {
+                        string[] tuple = isiListBox[i].Split(':');
+                        for (int k = 0; k < 3; k++)
+                        {
+                            matrikstuple[i, k] = tuple[k];
+                            matrikstuple[i, k] = matrikstuple[i, k].Replace("\t", String.Empty);
+                            matrikstuple[i, k] = matrikstuple[i, k].Replace("\n", String.Empty);
+                            matrikstuple[i, k] = matrikstuple[i, k].Replace("\r", String.Empty);
+                            matrikstuple[i, k] = matrikstuple[i, k].Replace(" ", String.Empty);
+                        }
+                    }
+                    #endregion
+
+                    if (MulticolorCheckBox.IsChecked == true)
+                    {
+                        FullColorizeTextEditorFull();
+                    }
+                    else
+                    {
+                        ColorizeTextEditorFull();
+                    }
+                    reset_button.IsEnabled = true;
+                }
+            }
+                TextEditor_1.TextArea.TextEntering += textEditor_TextArea_TextEntering;
+                TextEditor_2.TextArea.TextEntering += textEditor_TextArea_TextEntering;
+
+                DispatcherTimer foldingUpdateTimer1 = new DispatcherTimer();
+                foldingUpdateTimer1.Interval = TimeSpan.FromSeconds(2);
+                foldingUpdateTimer1.Tick += foldingUpdateTimer_Tick1;
+                foldingUpdateTimer1.Start();
+
+                DispatcherTimer foldingUpdateTimer2 = new DispatcherTimer();
+                foldingUpdateTimer2.Interval = TimeSpan.FromSeconds(2);
+                foldingUpdateTimer2.Tick += foldingUpdateTimer_Tick2;
+                foldingUpdateTimer2.Start();
+                
         }
         CompletionWindow completionWindow;
         void textEditor_TextArea_TextEntering(object sender, TextCompositionEventArgs e)
@@ -480,247 +728,264 @@ namespace Kp
         #region Button
         private void Button_Start_Click(object sender, RoutedEventArgs e)
         {
-            ProcessStartInfo psi = new ProcessStartInfo(txtBox_BatFile.Text);
-            psi.UseShellExecute = false;
-            psi.RedirectStandardOutput = true;
-            psi.CreateNoWindow = true;
-            psi.RedirectStandardInput = true;
-
-            var p = Process.Start(psi);
-            p.StandardInput.WriteLine(txtBox_FileInput1.Text);
-            p.StandardInput.WriteLine(txtBox_FileInput2.Text);
-            string hasil = p.StandardOutput.ReadToEnd();
-
-            #region arrayTextEditor1 & TextEditor2
-            string[] array1 = new string[hasil.Length];
-            array1 = hasil.Split('\n');
-            string[] array2 = new string[array1.Length];
-            int j = 2;
-            for (int i = 0; i < array2.Length - 5; i++)
+            if (File.Exists(projectPath + @"\Setting.txt"))
             {
-                array2[i] = array1[j];
-                j++;
-
-            }
-            arrayTextEditor1 = new string[array2.Length];
-            int counterTextEditor = 0;
-            arrayTextEditor1[0] = array2[0];
-            for (int i = 0; i < array2.Length; i++)
-            {
-                counterTextEditor = i;
-                if (array2[i].Contains("=EndOfFile="))
+                if (MulticolorCheckBox.IsChecked == true)
                 {
-                    break;
+                    FullColorizeTextEditorFull();
                 }
                 else
                 {
-                    arrayTextEditor1[i] = array2[i];
+                    ColorizeTextEditorFull();
                 }
-            }
-            counterTextEditor += 1;
-            arrayTextEditor2 = new string[array2.Length];
-            for (int i = 0; i < array2.Length; i++)
-            {
-                if (array2[counterTextEditor] == null)
-                {
-                    break;
-                }
-                else
-                {
-                    arrayTextEditor2[i] = array2[counterTextEditor];
-                    counterTextEditor++;
-                }
-            }
-            #endregion
-            #region MatchTuple
-            arrayHasilMatchTuple = new string[array2.Length];
-            arrayHasilMatchTuple[0] = array1[array1.Length - 3];
-            for (int i = 0; i < array2.Length; i++)
-            {
-                if (arrayTextEditor1[i] == null)
-                {
-                    break;
-                }
-                else if (arrayTextEditor1[i] != null)
-                {
-                    arrayTextEditor1[i] = arrayTextEditor1[i].Replace("\n", String.Empty);
-                    arrayTextEditor1[i] = arrayTextEditor1[i].Replace("\r", String.Empty);
-                    arrayTextEditor1[i] = arrayTextEditor1[i].Replace("\t", String.Empty);
-                }
-            }
-            for (int i = 0; i < array2.Length; i++)
-            {
-                if (arrayTextEditor2[i] == null)
-                {
-                    break;
-                }
-                else if (arrayTextEditor2[i] != null)
-                {
-                    arrayTextEditor2[i] = arrayTextEditor2[i].Replace("\n", String.Empty);
-                    arrayTextEditor2[i] = arrayTextEditor2[i].Replace("\r", String.Empty);
-                    arrayTextEditor2[i] = arrayTextEditor2[i].Replace("\t", String.Empty);
-                }
-            }
-
-            #endregion
-            #region array line + index
-            string[] arrayLineIndex1 = new string[arrayTextEditor1.Length];
-            arrayLineString1 = new string[arrayTextEditor1.Length];
-            arrayLine1 = new int[arrayLineIndex1.Length];
-            arrayIndex1 = new int[arrayLineIndex1.Length];
-            for (int i = 0; i < arrayTextEditor1.Length; i++)
-            {
-                if (arrayTextEditor1[i] == "=EndOfFile=")
-                {
-                    break;
-                }
-                else if (arrayTextEditor1[i] == "=EndOfString=")
-                {
-                    int counterString1 = 0;
-                    int counterString2 = 0;
-                    for (counterString1 = i + 1; counterString1 < arrayTextEditor1.Length; counterString1++)
-                    {
-                        if (arrayTextEditor1[counterString1] == "=EndOfLine=")
-                        {
-                            i = counterString1 - 1;
-                            break;
-                        }
-                        else
-                        {
-                            arrayLine1[counterString2] = Convert.ToInt32(arrayTextEditor1[counterString1]);
-                            counterString2++;
-                        }
-                    }
-                }
-                else if (arrayTextEditor1[i] == "=EndOfLine=")
-                {
-                    int counterString1 = 0;
-                    int counterString2 = 0;
-                    for (counterString1 = i + 1; counterString1 < arrayTextEditor1.Length; counterString1++)
-                    {
-                        if (arrayTextEditor1[counterString1] == "=EndOfFile=")
-                        {
-                            i = counterString1;
-                            break;
-                        }
-                        else
-                        {
-                            arrayIndex1[counterString2] = Convert.ToInt32(arrayTextEditor1[counterString1]);
-                            counterString2++;
-                        }
-                    }
-                }
-                else
-                {
-                    arrayLineString1[i] = arrayTextEditor1[i];
-                }
-            }
-
-
-            string[] arrayLineIndex2 = new string[arrayTextEditor2.Length];
-            arrayLine2 = new int[arrayTextEditor2.Length];
-            arrayLineString2 = new string[arrayTextEditor2.Length];
-            arrayIndex2 = new int[arrayTextEditor2.Length];
-            for (int i = 0; i < arrayTextEditor2.Length; i++)
-            {
-                if (arrayTextEditor2[i] == "=EndOfFile=")
-                {
-                    break;
-                }
-                else if (arrayTextEditor2[i] == "=EndOfString=")
-                {
-                    int counterString1 = 0;
-                    int counterString2 = 0;
-                    for (counterString1 = i + 1; counterString1 < arrayTextEditor2.Length; counterString1++)
-                    {
-                        if (arrayTextEditor2[counterString1] == "=EndOfLine=")
-                        {
-                            i = counterString1 - 1;
-                            break;
-                        }
-                        else
-                        {
-                            arrayLine2[counterString2] = Convert.ToInt32(arrayTextEditor2[counterString1]);
-                            counterString2++;
-                        }
-                    }
-                }
-                else if (arrayTextEditor2[i] == "=EndOfLine=")
-                {
-                    int counterString1 = 0;
-                    int counterString2 = 0;
-                    for (counterString1 = i + 1; counterString1 < arrayTextEditor2.Length; counterString1++)
-                    {
-                        if (arrayTextEditor2[counterString1] == "=EndOfFile=")
-                        {
-                            i = counterString1;
-                            break;
-                        }
-                        else
-                        {
-                            arrayIndex2[counterString2] = Convert.ToInt32(arrayTextEditor2[counterString1]);
-                            counterString2++;
-                        }
-                    }
-                }
-                else
-                {
-                    arrayLineString2[i] = arrayTextEditor2[i];
-                }
-            }
-            #endregion
-            #region matrikstuple
-            arrayHasilMatchTuple[0] = arrayHasilMatchTuple[0].Replace("[", String.Empty);
-            arrayHasilMatchTuple[0] = arrayHasilMatchTuple[0].Replace("]", String.Empty);
-            isiListBox = arrayHasilMatchTuple[0].Split(',');
-            for (int i = 0; i < isiListBox.Length; i++)
-            {
-                isiListBox[i] = isiListBox[i].Replace("\t", String.Empty);
-                isiListBox[i] = isiListBox[i].Replace("\n", String.Empty);
-                isiListBox[i] = isiListBox[i].Replace("\r", String.Empty);
-                isiListBox[i] = isiListBox[i].Replace(" ", String.Empty);
-            }
-            if (isiListBox == null)
-            {
-                isiListBox[0] = arrayHasilMatchTuple[0];
-            }
-            ListBoxMatchTuple.ItemsSource = isiListBox;
-            matrikstuple = new string[isiListBox.Length, 3];
-            for (int i = 0; i < isiListBox.Length; i++)
-            {
-                string[] tuple = isiListBox[i].Split(':');
-                for (int k = 0; k < 3; k++)
-                {
-                    matrikstuple[i, k] = tuple[k];
-                    matrikstuple[i, k] = matrikstuple[i, k].Replace("\t", String.Empty);
-                    matrikstuple[i, k] = matrikstuple[i, k].Replace("\n", String.Empty);
-                    matrikstuple[i, k] = matrikstuple[i, k].Replace("\r", String.Empty);
-                    matrikstuple[i, k] = matrikstuple[i, k].Replace(" ", String.Empty);
-                }
-            }
-            #endregion
-
-            if (MulticolorCheckBox.IsChecked == true)
-            {
-                FullColorizeTextEditorFull();
             }
             else
             {
-                ColorizeTextEditorFull();
+                string processalgo="";
+                if(AlgoComboBox.SelectedItem != null)
+                {
+                    //Source Folder
+                    if(AlgoComboBox.SelectedItem.ToString()=="Java")
+                    {
+                        processalgo = @".\.bat\GstJava.bat";
+                    }
+                    else if (AlgoComboBox.SelectedItem.ToString() == "C++")
+                    {
+                        processalgo = @".\.bat\GstCpp.bat";
+                    }
+                    else if (AlgoComboBox.SelectedItem.ToString() == "Python")
+                    {
+                        processalgo = @".\.bat\GstCpp.bat";
+                    }
+                }
+                ProcessStartInfo psi = new ProcessStartInfo(processalgo);
+                psi.UseShellExecute = false;
+                psi.RedirectStandardOutput = true;
+                psi.CreateNoWindow = true;
+                psi.RedirectStandardInput = true;
+
+                var p = Process.Start(psi);
+                p.StandardInput.WriteLine(txtBox_FileInput1.Text);
+                p.StandardInput.WriteLine(txtBox_FileInput2.Text);
+                string hasil = p.StandardOutput.ReadToEnd();
+
+                #region arrayTextEditor1 & TextEditor2
+                string[] array1 = new string[hasil.Length];
+                array1 = hasil.Split('\n');
+                string[] array2 = new string[array1.Length];
+                int j = 2;
+                for (int i = 0; i < array2.Length - 5; i++)
+                {
+                    array2[i] = array1[j];
+                    j++;
+                }
+                arrayTextEditor1 = new string[array2.Length];
+                int counterTextEditor = 0;
+                arrayTextEditor1[0] = array2[0];
+                for (int i = 0; i < array2.Length; i++)
+                {
+                    counterTextEditor = i;
+                    if (array2[i].Contains("=EndOfFile="))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        arrayTextEditor1[i] = array2[i];
+                    }
+                }
+                counterTextEditor += 1;
+                arrayTextEditor2 = new string[array2.Length];
+                for (int i = 0; i < array2.Length; i++)
+                {
+                    if (array2[counterTextEditor] == null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        arrayTextEditor2[i] = array2[counterTextEditor];
+                        counterTextEditor++;
+                    }
+                }
+                #endregion
+                #region MatchTuple
+                arrayHasilMatchTuple = new string[array2.Length];
+                arrayHasilMatchTuple[0] = array1[array1.Length - 3];
+                for (int i = 0; i < array2.Length; i++)
+                {
+                    if (arrayTextEditor1[i] == null)
+                    {
+                        break;
+                    }
+                    else if (arrayTextEditor1[i] != null)
+                    {
+                        arrayTextEditor1[i] = arrayTextEditor1[i].Replace("\n", String.Empty);
+                        arrayTextEditor1[i] = arrayTextEditor1[i].Replace("\r", String.Empty);
+                        arrayTextEditor1[i] = arrayTextEditor1[i].Replace("\t", String.Empty);
+                    }
+                }
+                for (int i = 0; i < array2.Length; i++)
+                {
+                    if (arrayTextEditor2[i] == null)
+                    {
+                        break;
+                    }
+                    else if (arrayTextEditor2[i] != null)
+                    {
+                        arrayTextEditor2[i] = arrayTextEditor2[i].Replace("\n", String.Empty);
+                        arrayTextEditor2[i] = arrayTextEditor2[i].Replace("\r", String.Empty);
+                        arrayTextEditor2[i] = arrayTextEditor2[i].Replace("\t", String.Empty);
+                    }
+                }
+                #endregion
+                #region array line + index
+                string[] arrayLineIndex1 = new string[arrayTextEditor1.Length];
+                arrayLineString1 = new string[arrayTextEditor1.Length];
+                arrayLine1 = new int[arrayLineIndex1.Length];
+                arrayIndex1 = new int[arrayLineIndex1.Length];
+                for (int i = 0; i < arrayTextEditor1.Length; i++)
+                {
+                    if (arrayTextEditor1[i] == "=EndOfFile=")
+                    {
+                        break;
+                    }
+                    else if (arrayTextEditor1[i] == "=EndOfString=")
+                    {
+                        int counterString1 = 0;
+                        int counterString2 = 0;
+                        for (counterString1 = i + 1; counterString1 < arrayTextEditor1.Length; counterString1++)
+                        {
+                            if (arrayTextEditor1[counterString1] == "=EndOfLine=")
+                            {
+                                i = counterString1 - 1;
+                                break;
+                            }
+                            else
+                            {
+                                arrayLine1[counterString2] = Convert.ToInt32(arrayTextEditor1[counterString1]);
+                                counterString2++;
+                            }
+                        }
+                    }
+                    else if (arrayTextEditor1[i] == "=EndOfLine=")
+                    {
+                        int counterString1 = 0;
+                        int counterString2 = 0;
+                        for (counterString1 = i + 1; counterString1 < arrayTextEditor1.Length; counterString1++)
+                        {
+                            if (arrayTextEditor1[counterString1] == "=EndOfFile=")
+                            {
+                                i = counterString1;
+                                break;
+                            }
+                            else
+                            {
+                                arrayIndex1[counterString2] = Convert.ToInt32(arrayTextEditor1[counterString1]);
+                                counterString2++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        arrayLineString1[i] = arrayTextEditor1[i];
+                    }
+                }
+
+
+                string[] arrayLineIndex2 = new string[arrayTextEditor2.Length];
+                arrayLine2 = new int[arrayTextEditor2.Length];
+                arrayLineString2 = new string[arrayTextEditor2.Length];
+                arrayIndex2 = new int[arrayTextEditor2.Length];
+                for (int i = 0; i < arrayTextEditor2.Length; i++)
+                {
+                    if (arrayTextEditor2[i] == "=EndOfFile=")
+                    {
+                        break;
+                    }
+                    else if (arrayTextEditor2[i] == "=EndOfString=")
+                    {
+                        int counterString1 = 0;
+                        int counterString2 = 0;
+                        for (counterString1 = i + 1; counterString1 < arrayTextEditor2.Length; counterString1++)
+                        {
+                            if (arrayTextEditor2[counterString1] == "=EndOfLine=")
+                            {
+                                i = counterString1 - 1;
+                                break;
+                            }
+                            else
+                            {
+                                arrayLine2[counterString2] = Convert.ToInt32(arrayTextEditor2[counterString1]);
+                                counterString2++;
+                            }
+                        }
+                    }
+                    else if (arrayTextEditor2[i] == "=EndOfLine=")
+                    {
+                        int counterString1 = 0;
+                        int counterString2 = 0;
+                        for (counterString1 = i + 1; counterString1 < arrayTextEditor2.Length; counterString1++)
+                        {
+                            if (arrayTextEditor2[counterString1] == "=EndOfFile=")
+                            {
+                                i = counterString1;
+                                break;
+                            }
+                            else
+                            {
+                                arrayIndex2[counterString2] = Convert.ToInt32(arrayTextEditor2[counterString1]);
+                                counterString2++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        arrayLineString2[i] = arrayTextEditor2[i];
+                    }
+                }
+                #endregion
+                #region matrikstuple
+                arrayHasilMatchTuple[0] = arrayHasilMatchTuple[0].Replace("[", String.Empty);
+                arrayHasilMatchTuple[0] = arrayHasilMatchTuple[0].Replace("]", String.Empty);
+                isiListBox = arrayHasilMatchTuple[0].Split(',');
+                for (int i = 0; i < isiListBox.Length; i++)
+                {
+                    isiListBox[i] = isiListBox[i].Replace("\t", String.Empty);
+                    isiListBox[i] = isiListBox[i].Replace("\n", String.Empty);
+                    isiListBox[i] = isiListBox[i].Replace("\r", String.Empty);
+                    isiListBox[i] = isiListBox[i].Replace(" ", String.Empty);
+                }
+                if (isiListBox == null)
+                {
+                    isiListBox[0] = arrayHasilMatchTuple[0];
+                }
+                ListBoxMatchTuple.ItemsSource = isiListBox;
+                matrikstuple = new string[isiListBox.Length, 3];
+                for (int i = 0; i < isiListBox.Length; i++)
+                {
+                    string[] tuple = isiListBox[i].Split(':');
+                    for (int k = 0; k < 3; k++)
+                    {
+                        matrikstuple[i, k] = tuple[k];
+                        matrikstuple[i, k] = matrikstuple[i, k].Replace("\t", String.Empty);
+                        matrikstuple[i, k] = matrikstuple[i, k].Replace("\n", String.Empty);
+                        matrikstuple[i, k] = matrikstuple[i, k].Replace("\r", String.Empty);
+                        matrikstuple[i, k] = matrikstuple[i, k].Replace(" ", String.Empty);
+                    }
+                }
+                #endregion
+
+                if (MulticolorCheckBox.IsChecked == true)
+                {
+                    FullColorizeTextEditorFull();
+                }
+                else
+                {
+                    ColorizeTextEditorFull();
+                }
+                reset_button.IsEnabled = true;
             }
-            reset_button.IsEnabled = true;
-        }
-        private void Button_Upload_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.DefaultExt = ".bat";
-            ofd.Filter = "Text Document (.bat)|*.bat*";
-            if (ofd.ShowDialog() == true)
-            {
-                string file = ofd.FileName;
-                txtBox_BatFile.Text = file;
-            }
-            CekInput();
         }
         private void reset_button_Click(object sender, RoutedEventArgs e)
         {
@@ -771,7 +1036,7 @@ namespace Kp
 
                 if (string.IsNullOrEmpty(TextEditor_2.Text))
                 {
-                    MessageBox.Show(".java file must not be empty !", "Error", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                    MessageBox.Show("file must not be empty !", "Error", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
                     txtBox_FileInput2.Text = null;
                 }
                 else
@@ -825,7 +1090,7 @@ namespace Kp
                 TextEditor_1.Load(txtBox_FileInput1.Text);
                 if (string.IsNullOrEmpty(TextEditor_1.Text))
                 {
-                    MessageBox.Show(".java file must not be empty !", "Error", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                    MessageBox.Show("file must not be empty !", "Error", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
                     txtBox_FileInput1.Text = null;
                 }
                 else
@@ -858,7 +1123,11 @@ namespace Kp
         }
         private void questionButton_BatFile_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Upload the .bat file for plagiarism algorithm.\nWith the output format : \n[Token] end with '=EndOfString='\n[Token Line]end with '=EndOfLine='\n[Token Index]end with '=EndOfFile='\nFollowed by :\n[s1],[s2],[jumlah token]", "Upload", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+            MessageBox.Show("Choose Which Programming Language you want to use", "Use", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+        }
+        private void questionButton_MatchTuple_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Match Tuple Yang ditampilkan \n[F1]:[F2]:[Length]\n[F1] -> Urutan Mulai String yang sama dari total String File1\n[F2] -> Urutan Mulai String yang sama dari total String File2\n[Length] -> Jumlah String yang sama dari urutan mulai String", "Use", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
         }
         #endregion
 
@@ -1112,16 +1381,21 @@ namespace Kp
             else if (string.IsNullOrEmpty(txtBox_FileInput2.Text))
             {
             }
-            else if (string.IsNullOrEmpty(txtBox_BatFile.Text))
+            else if (AlgoComboBox.SelectedItem==null)
             {
             }
             else
             {
                 Button_Start.IsEnabled = true;
-
             }
         }
         #endregion
 
+        #endregion
+
+        private void AlgoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CekInput();
+        }
     }
 }

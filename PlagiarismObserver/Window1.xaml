@@ -24,7 +24,7 @@
 	xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
 	xmlns:CodeCompletion="clr-namespace:ICSharpCode.AvalonEdit.CodeCompletion;assembly=ICSharpCode.AvalonEdit" x:Class="Kp.Window1"
 	TextOptions.TextFormattingMode="Display"
-	Title="Plago" Height="642.92" Width="1367.306" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+	Title="Plago" Height="642.92" Width="1364.106" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <LinearGradientBrush x:Key="BackBrush" StartPoint="0.5,0" EndPoint="0.5,1">
             <GradientStop Color="#66000000" Offset="0" />
@@ -57,38 +57,38 @@
             </Grid.ColumnDefinitions>
             <avalonEdit:TextEditor x:Name="TextEditor_2" Margin="10,10,9.6,0" VerticalAlignment="Top" Height="519" TextChanged="TextEditor_2_TextChanged" IsReadOnly="True" IsHitTestVisible="True" MouseDoubleClick="TextEditor_2_MouseDoubleClick" BorderThickness="0" FontSize="14"/>
         </Grid>
-        <Label Content="Match Tuple :" Margin="8,116,1378.8,0" VerticalAlignment="Top" Height="35" FontSize="16" HorizontalAlignment="Center" Width="156"/>
         <Label Content="Total Line :" Height="24" Margin="370,541,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="91"/>
         <Label x:Name="TotalLine_TextEditor1" Content="" Height="24" Margin="445,541,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="71"/>
         <Label Content="Total Line :" Height="24" Margin="950,541,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="91"/>
         <Label x:Name="TotalLine_TextEditor2" Content="" Height="24" Margin="1025,541,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="71"/>
-        <Button x:Name="reset_button" Content="Reset" Margin="10,418,0,0" VerticalAlignment="Top" Click="reset_button_Click" HorizontalAlignment="Left" Width="89" IsEnabled="False"/>
-        <Label Content="FileInput 1 :" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="89" FontSize="14"/>
-        <Button x:Name="Button_Start" Content="Start" HorizontalAlignment="Left" Height="34" Margin="274,86,0,0" VerticalAlignment="Top" Width="78" Click="Button_Start_Click" FontWeight="Bold" IsEnabled="False"/>
-        <TextBox x:Name="txtBox_BatFile" HorizontalAlignment="Left" Height="22" Margin="120,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" IsReadOnly="True"/>
-        <Button x:Name="questionButton_BatFile" Margin="327,60,0,0" Height="22" VerticalAlignment="Top" Click="questionButton_BatFile_Click" HorizontalAlignment="Left" Width="25">
+        <Button x:Name="reset_button" Content="Clear Focus" Margin="10,427,0,0" VerticalAlignment="Top" Click="reset_button_Click" HorizontalAlignment="Left" Width="78" IsEnabled="False" Height="34" FontWeight="Bold"/>
+        <Label Content="The 1st Code :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="127" FontSize="14"/>
+        <Button x:Name="Button_Start" Content="Execute" HorizontalAlignment="Left" Height="34" Margin="274,95,0,0" VerticalAlignment="Top" Width="78" Click="Button_Start_Click" FontWeight="Bold" IsEnabled="False"/>
+        <Button x:Name="questionButton_BatFile" Margin="293,66,0,0" Height="22" VerticalAlignment="Top" Click="questionButton_BatFile_Click" HorizontalAlignment="Left" Width="25">
             <Image Source="Images/question.png" Height="16" Stretch="Fill"/>
         </Button>
-        <Button x:Name="btn_FileInput1" Click="btn_FileInput1_Click" Margin="97,2,0,0" HorizontalAlignment="Left" Width="22" Height="23" VerticalAlignment="Top">
+        <Button x:Name="btn_FileInput1" Click="btn_FileInput1_Click" Margin="108,2,0,0" HorizontalAlignment="Left" Width="22" Height="24" VerticalAlignment="Top">
             <Image Source="Images/Open.png" Height="16"/>
         </Button>
-        <TextBox x:Name="txtBox_FileInput1" HorizontalAlignment="Left" Height="24" Margin="119,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" IsReadOnly="True"/>
-        <Button x:Name="questionButton_FileInput1" Margin="326,2,0,0" Click="questionButton_FileInput1_Click" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="25">
+        <TextBox x:Name="txtBox_FileInput1" HorizontalAlignment="Left" Height="24" Margin="130,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" IsReadOnly="True"/>
+        <Button x:Name="questionButton_FileInput1" Margin="302,2,0,0" Click="questionButton_FileInput1_Click" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="25">
             <Image Source="Images/question.png" Height="16" Stretch="Fill"/>
         </Button>
-        <Label Content="FileInput 2 :" HorizontalAlignment="Left" Margin="8,28,0,0" VerticalAlignment="Top" Width="89" FontSize="14"/>
-        <Button x:Name="btn_FileInput2" Click="btn_FileInput2_Click" Margin="97,31,0,0" HorizontalAlignment="Left" Width="23" Height="23" VerticalAlignment="Top">
+        <Label Content="The 2nd Code :" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top" Width="127" FontSize="14"/>
+        <Button x:Name="btn_FileInput2" Click="btn_FileInput2_Click" Margin="107,31,0,0" HorizontalAlignment="Left" Width="23" Height="24" VerticalAlignment="Top">
             <Image Source="Images/Open.png" Height="16"/>
         </Button>
-        <TextBox x:Name="txtBox_FileInput2" HorizontalAlignment="Left" Height="24" Margin="120,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" IsReadOnly="True"/>
-        <Button x:Name="questionButton_FileInput2" Margin="326,31,0,0" Height="24" VerticalAlignment="Top" Click="questionButton_FileInput2_Click" HorizontalAlignment="Left" Width="25">
+        <TextBox x:Name="txtBox_FileInput2" HorizontalAlignment="Left" Height="24" Margin="130,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" IsReadOnly="True"/>
+        <Button x:Name="questionButton_FileInput2" Margin="302,31,0,0" Height="24" VerticalAlignment="Top" Click="questionButton_FileInput2_Click" HorizontalAlignment="Left" Width="25">
             <Image Source="Images/question.png" Height="16" Stretch="Fill"/>
         </Button>
-        <ListBox x:Name="ListBoxMatchTuple" HorizontalAlignment="Left" Height="260" Margin="10,153,0,0" VerticalAlignment="Top" Width="341" SelectionChanged="ListBoxMatchTuple_SelectionChanged" FontWeight="Bold" FontSize="16"/>
-        <CheckBox x:Name="MulticolorCheckBox" Content="MultiColorHighlight" HorizontalAlignment="Left" Margin="15,96,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <Button x:Name="Button_Upload" Click="Button_Upload_Click" Margin="97,59,0,0" HorizontalAlignment="Left" Width="23" Height="23" VerticalAlignment="Top">
-            <Image Source="Images/Open.png" Height="16"/>
+        <ListBox x:Name="ListBoxMatchTuple" HorizontalAlignment="Left" Height="260" Margin="10,162,0,0" VerticalAlignment="Top" Width="341" SelectionChanged="ListBoxMatchTuple_SelectionChanged" FontWeight="Bold" FontSize="16"/>
+        <CheckBox x:Name="MulticolorCheckBox" Content="Multi-Colour Mode" HorizontalAlignment="Left" Margin="15,105,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <Label x:Name="label_Algorithm" Content="Programming Language :" HorizontalAlignment="Left" Margin="0,58,0,0" VerticalAlignment="Top" Width="175" FontSize="14"/>
+        <Label Content="Matching Tuple :" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="AlgoComboBox" HorizontalAlignment="Left" Margin="173,66,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="AlgoComboBox_SelectionChanged"/>
+        <Button x:Name="questionButton_MatchTuple" Margin="326,427,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="25" Click="questionButton_MatchTuple_Click">
+            <Image Source="Images/question.png" Height="16" Stretch="Fill"/>
         </Button>
-        <Label Content=".bat Input :" HorizontalAlignment="Left" Margin="8,58,0,0" VerticalAlignment="Top" Width="89" FontSize="14"/>
     </Grid>
 </Window>

@@ -1,0 +1,1 @@
+java -jar C:\Users\carlc\Desktop\ToDo\KP\App\PlagiarismObserver\Algo\Gst\CPPGST\dist\CppGST.jar

@@ -50,6 +50,7 @@ F:\KP\App\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit.pdb
 C:\Users\carlc\Desktop\ToDo\KP\App\bin\Debug\ICSharpCode.AvalonEdit.xml
 C:\Users\carlc\Desktop\ToDo\KP\App\bin\Debug\ICSharpCode.AvalonEdit.dll
 C:\Users\carlc\Desktop\ToDo\KP\App\bin\Debug\ICSharpCode.AvalonEdit.pdb
+C:\Users\carlc\Desktop\ToDo\KP\App\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit.csprojAssemblyReference.cache
 C:\Users\carlc\Desktop\ToDo\KP\App\ICSharpCode.AvalonEdit\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\carlc\Desktop\ToDo\KP\App\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit_MarkupCompile.cache
 C:\Users\carlc\Desktop\ToDo\KP\App\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit_MarkupCompile.lref
